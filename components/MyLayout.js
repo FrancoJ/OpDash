@@ -1,6 +1,5 @@
 import Header from './Header'
 
-
 const Layout = (props) => (
   <main className="container">
     <Header />
