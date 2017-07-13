@@ -14,7 +14,7 @@ var _head2 = _interopRequireDefault(_head);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _jsxFileName = '/Users/Jobrown/Desktop/OpDash/components/header.js';
+var _jsxFileName = '/Users/frjohns/Desktop/Hackathon/OpDash/components/Header.js';
 
 exports.default = function () {
   return _react2.default.createElement('header', {
