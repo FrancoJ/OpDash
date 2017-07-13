@@ -12,6 +12,10 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -23,6 +27,10 @@ var _MyLayout2 = _interopRequireDefault(_MyLayout);
 var _isomorphicUnfetch = require('isomorphic-unfetch');
 
 var _isomorphicUnfetch2 = _interopRequireDefault(_isomorphicUnfetch);
+
+var _link = require('next/dist/lib/link.js');
+
+var _link2 = _interopRequireDefault(_link);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77,45 +85,78 @@ var Index = function Index(props) {
       fileName: _jsxFileName,
       lineNumber: 25
     }
-  }, props.experiments.map(function (_ref) {
-    var experiment = _ref.experiment;
-    return _react2.default.createElement('li', { key: experiment.id, __source: {
+  }, _react2.default.createElement('p', {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 26
+    }
+  }, (0, _typeof3.default)(props.experiments)), _react2.default.createElement('p', {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 27
+    }
+  }, props.experiments.length), _react2.default.createElement('p', {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28
+    }
+  }, props.experiments[44].id), props.experiments.map(function (exp, i) {
+    return _react2.default.createElement('li', { key: i, __source: {
         fileName: _jsxFileName,
-        lineNumber: 27
+        lineNumber: 35
       }
-    }, _react2.default.createElement('p', {
+    }, _react2.default.createElement(_link2.default, { as: '/p/' + exp.id, href: '/post?id=' + exp.id, __source: {
+        fileName: _jsxFileName,
+        lineNumber: 36
+      }
+    }, _react2.default.createElement('a', {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 31
+        lineNumber: 37
       }
-    }, experiment.description));
+    }, exp.description)));
   })))));
 };
 
 Index.getInitialProps = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-  var res, data;
+  var obj, experimentData, data;
   return _regenerator2.default.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
-          return (0, _isomorphicUnfetch2.default)('https://api.tvmaze.com/search/shows?q=batman');
+          // console.log("HIT!");
+          obj = {
+            method: "GET",
+            headers: {
+              'Token': "a35c57d503334121476aa03dc6a1ece2d923c11a0fc8c7112096e50552a961c8:gZkVMq7n4"
+            }
+          };
+          _context.next = 3;
+          return (0, _isomorphicUnfetch2.default)('https://www.optimizelyapis.com/experiment/v1/projects/1842140438/experiments/', obj);
 
-        case 2:
-          res = _context.sent;
-          _context.next = 5;
-          return res.json();
+        case 3:
+          experimentData = _context.sent;
+          _context.next = 6;
+          return experimentData.json().then(function (exp) {
+            var count = 0;
+            var dataArray = [];
+            exp.forEach(function (ind) {
+              ind['id'] = count++;
+              dataArray.push(ind);
+            });
+            return dataArray;
+          });
 
-        case 5:
+        case 6:
           data = _context.sent;
 
           console.log('Show data fetched. Count: ' + data);
 
           return _context.abrupt('return', {
-            shows: data
+            experiments: data
           });
 
-        case 8:
+        case 9:
         case 'end':
           return _context.stop();
       }
